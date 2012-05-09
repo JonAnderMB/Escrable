@@ -89,6 +89,7 @@ public class Escrable {
 							}
 							
 						}while(jugador.hacerJugada(x, y, fichasDeJugada,hV));
+						//Comprobar si ha ganado
 						break;
 					case 3://Cambiar mano
 						jugador.cambiarMano();
@@ -96,6 +97,7 @@ public class Escrable {
 						accionOk=true;
 						break;
 					default:
+						accionOk=false;
 						break;
 				}
 			}while(accionOk); 
