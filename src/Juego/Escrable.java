@@ -58,19 +58,37 @@ public class Escrable {
 						System.out.println("Mano: ");	
 						jugador.getListaFichas().imprimirMano();	
 						Ficha[] fichasDeJugada = seleccionaFichas(jugador);
+						boolean hV;
 						byte x=-1;
-						do{
-							System.out.println("Introduce la cordenada x");
-							x= leerCordenada();
-						}while(x!=-1);
 						byte y=-1;
 						do{
-							System.out.println("Introduce la cordenada y");
-							y= leerCordenada();
-						}while(y!=-1);
+							
+							do{
+								System.out.println("Introduce la cordenada x");
+								x= leerCordenada();
+							}while(x!=-1);
+							
+							do{
+								System.out.println("Introduce la cordenada y");
+								y= leerCordenada();
+							}while(y!=-1);
 			
-						Tablero.comprobarCordenada(x, y);
-						jugador.hacerJugada(x, y, fichasDeJugada);
+							Tablero.comprobarCordenada(x, y);
+						
+							System.out.println("Inserte 1 para horizontal, en cualquier otro caso sera vertical");
+							
+							try {
+								if(System.in.read()==1){
+									hV=true;
+								}else{
+									hV=false;
+								}
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}while(jugador.hacerJugada(x, y, fichasDeJugada,hV));
 						break;
 					case 3://Cambiar mano
 						jugador.cambiarMano();

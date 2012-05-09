@@ -32,7 +32,7 @@ public class Jugador {
 		}
 	}
 	
-	public Jugada hacerJugada(byte pX, byte pY, Ficha[] pFicha, boolean pVH){
+	public boolean hacerJugada(byte pX, byte pY, Ficha[] pFicha, boolean pVH){
 		return new Jugada(pX, pY, pFicha, pVH); //h v
 	}
 	
