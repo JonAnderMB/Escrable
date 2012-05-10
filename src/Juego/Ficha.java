@@ -1,7 +1,5 @@
 package Juego;
 
-import java.util.ArrayList;
-
 public class Ficha {
 	private char letra;
 	private int puntos;
