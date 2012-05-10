@@ -3,27 +3,23 @@ package Juego;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.StringTokenizer;
+
+import javax.swing.JFileChooser;
 
 public class Lector {
 
 	//Atributos
-	private String archivoen;
-	private String archivosa;
-	private ArrayList<String> palabras = new ArrayList<String>();
+	private String archivoEn;										//Indica la ruta donde esta el diccionario
+	private ArrayList<String> palabras = new ArrayList<String>();	//El diccionario
 	
 	//Constructor
 
-	public	Lector(String pArchivoen, String pArchivosa){
-		this.archivoen=archivoen;
-		this.archivosa=archivosa;
-		leerArchivo();
+	public	Lector(){
+		setArchivoEn();	//Se establece la ubicacion del diccionario
+		leerArchivo();	//Leer el archivo y obtiene las palabras
 	}
-
 	
 	private void leerArchivo(){
 
@@ -31,17 +27,10 @@ public class Lector {
 		FileReader fr = null;
 		BufferedReader br = null;
 		
-		FileWriter archivosa = null;
-		PrintWriter ining = null;
-		
 		try{
-			archivoen = new File(this.archivoen);
+			archivoen = new File(this.archivoEn);
 			fr = new FileReader(archivoen);
 			br = new BufferedReader(fr);
-			
-			archivosa = new FileWriter(this.archivosa);
-			ining = new PrintWriter(archivosa);
-			
 			String fila;
 			while((fila=br.readLine())!=null){
 				this.leerLinea(fila);
@@ -51,7 +40,6 @@ public class Lector {
 		 }finally{
 			try{
 					fr.close();
-					archivosa.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -60,8 +48,6 @@ public class Lector {
 	}
 	
 	private void leerLinea(String pLinea){
-		ArrayList<String> palabrasDeLinea = new ArrayList<String>();
-		
 		StringTokenizer tokens=new StringTokenizer(pLinea, " ");
 	        while(tokens.hasMoreTokens()){
 	            String str=tokens.nextToken();
@@ -89,4 +75,15 @@ public class Lector {
 	public ArrayList<String> getPalabras(){
 		return this.palabras;
 	}
+	
+	public void setArchivoEn(){
+		JFileChooser hh = new JFileChooser();
+		hh.showSaveDialog(hh);
+		this.archivoEn = hh.getSelectedFile().getAbsolutePath().toString();
+	}
+	
+	public String getArchivoEn(){
+		return this.archivoEn;
+	}
+	
 }
