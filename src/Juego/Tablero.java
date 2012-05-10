@@ -34,24 +34,29 @@ public class Tablero {
     	//Se realiza lajugada
     }
     
-    public void ponerFicha()
-    {
-    	//Falta que pasen fichas de jugada y sus coord para comprobar
-    	//cada casilla a usar y en caso de libre poner ficha (Casilla.libre=False)
-    	//y una vez hecho esto pasar siguiente ficha a colocar, sino realizar de 
-    	//nuevo la jugada.
-    	
-    	  if (casillas[i][j].libre()==true)
-    	  {
-    		  casillas[i][j].setLibre(False);
-    	  }
-    	  else
-    	  {
-    		  System.out.println("Casilla ocupada");
-    	  }
-    		  
+	private boolean ponerFicha(int x, int y) 
+	{
+		if (casillas[x][y].getLibre()==false)
+		{
+			return casillas[x][y].libre=casillas[x][y].setLibre(true);
+		}
+		else
+		{
+			return false;
+		}
     }
     
+    
+	 public int puntuacionJugada(Jugada jugada)
+	    {
+			int punt=0;
+			for (int x=1; x<=jugada.getLetras().length; x++)
+			{
+				punt=punt+jugada.letras[x].getPuntos();
+			}
+			return punt;
+	    }
+	
     public void resetearTablero()
     {
     	//setTablero() = new Tablero();
