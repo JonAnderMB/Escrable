@@ -1,55 +1,86 @@
-// Poner valores de casillas (puntuacion)
 package Juego;
 public class Tablero {
-    
-	private static Tablero tablero = new Tablero();
-	private Casilla[][] casillas;
 	
-	private Tablero(){
-		casillas = new Casilla[14][14];
-	    { //Hacemos el tablero de 15x15
-	        for (int i=0; i < 14; i++)
-	        {
-	            for (int j=0; j < 14; j++)
-	           {
-	              casillas[i][j]=new Casilla(null,false);
-	           }
-	        }
-	    }
-	}
+		private static Tablero tablero = new Tablero();
+		private Casilla[][] casillas;
+
+		private Tablero(){
+			casillas = new Casilla[14][14];
+			{ //Hacemos el tablero de 15x15
+				for (int i=0; i < 14; i++)
+				{
+					for (int j=0; j < 14; j++)
+					{
+						casillas[i][j]= new Casilla();			//Tira error.
+					}
+				}
+			}
+		}
+
+		public static boolean comprobarCordenada(byte x, byte y){return false;}
+
 	
-	public static boolean comprobarCordenada(byte x, byte y){return false;}
     
-    public static boolean comprobarJugada(Jugada jugada)
+    public boolean comprobarJugada(Ficha letras)
     {
-    	//jugada pasa coords.
-    	//NECESITO ARRAY DE FICHAS A USAR EN LA JUGADA.
+    	//Me pasan la palabra a colocar y se contrasta con el diccionario.
     	
     	return false;
     }
    
-    public boolean realizarJugada()
-    {
-    	return false;
-    	//Se realiza lajugada
+    public void realizarJugada()
+    {    	
+    	//If comprobarJugada correcto --> loop ponerFicha()
+
+    	ListaFichas listaFichas;
+    	if (this.comprobarJugada()==true)									//Tira error.
+    	{
+    		for (int a=0; a < listaFichas.utilizarFichas().size; a++)		//Tira error.
+    		{
+    			ponerFicha(x, y);											//Tira error.
+    		}
+    	}
+    	//Else --> repetir la jugada.
+    	else
+    	{
+    		//Repetir jugada¿?¿?
+    	}
+
     }
     
-    public void ponerFicha()
+    //No se que mierda es esto, me lo pasó mikel, echadle un ojo.
+    public boolean utilizarFichas(Jugada pJugada)
     {
-    	//Falta que pasen fichas de jugada y sus coord para comprobar
-    	//cada casilla a usar y en caso de libre poner ficha (Casilla.libre=False)
-    	//y una vez hecho esto pasar siguiente ficha a colocar, sino realizar de 
-    	//nuevo la jugada.
+      	
+	Jugada jugada = pJugada;
     	
-    	  if (casillas[i][j].libre()==true)
-    	  {
-    		  casillas[i][j].setLibre(False);
-    	  }
-    	  else
-    	  {
-    		  System.out.println("Casilla ocupada");
-    	  }
-    		  
+    	for (int x=1; x<=jugada.getLetras().length; x++)
+    	{
+    		Ficha fichaaponer = jugada.getLetras(x);
+    		ponerFicha(jugada.getI(), jugada.getF());
+           	
+    		if (jugada.getHV()==true) 
+    		{
+    			jugada.setI((byte)(jugada.getI()+1));
+    		}
+    		else
+    		{
+    			jugada.setF((byte)(jugada.getF()+1));;
+            }
+    	}
+    }
+    // Hasta aquí. 	 
+     
+	private boolean ponerFicha(int x, int y) 
+	{
+		if (casillas[x][y].getLibre()==false)
+		{
+			return casillas[x][y].libre=casillas[x][y].setLibre(true);
+		}
+		else
+		{
+			return false;
+		}
     }
     
     public void resetearTablero()
@@ -58,5 +89,13 @@ public class Tablero {
     	tablero = new Tablero();
     }
     
-   
+    public int puntuacionJugada(Jugada jugada)
+    {
+		int punt=0;
+		for (int x=1; x<=jugada.getLetras().length; x++)
+		{
+			punt=punt+jugada.letras[x].getPuntos();
+		}
+		return punt;
+    }
 }
