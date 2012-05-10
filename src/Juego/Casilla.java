@@ -3,9 +3,7 @@ package Juego;
 public class Casilla {
 	   
     private byte puntuacion;			
-    private boolean libre;
-    private byte i;
-    private byte j;
+    boolean libre;
    
     public Casilla (byte pPuntuacion, boolean pLibre)
     {
@@ -23,13 +21,8 @@ public class Casilla {
         return libre;
     }
     
-    public byte getI()
+    public boolean setLibre(boolean pLibre)
     {
-    	return i;
-    }
-    
-    public byte getJ()
-    {
-    	return j;
+    	return this.libre= pLibre;
     }
 }
