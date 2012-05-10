@@ -5,6 +5,7 @@ import java.util.Vector;
 import java.util.Iterator;
 
 public class ListaFichas {
+	//TODO Hacerlo con fichero
    private Ficha sacodefichas[] = {new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),
            new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),new Ficha('a',1),
            new Ficha('b',3),new Ficha('b',3),new Ficha('c',3),new Ficha('c',3),new Ficha('c',3),new Ficha('c',3),

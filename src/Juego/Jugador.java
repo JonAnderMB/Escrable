@@ -32,9 +32,32 @@ public class Jugador {
 		}
 	}
 	
-	public boolean hacerJugada(Jugada pJugada){
+	public boolean jugar(Jugada pJugada){
 		//Se le pasa la jugada y en funcion de ella se compruena si ha ganado o no y se actualiza el tablero
 	}
+	
+	public Jugada hacerJugada(){
+		Jugada jugada;
+		do{														//Bucle mientras la jugada no se pueda hacer
+			byte x, y;
+			boolean coordenadaOk=false;
+			Ficha[] fichasDeJugada = seleccionaFichas(pJugador);
+			do{													//Mientras la coodenada no este libre falla
+				x=leerCordenada("Introduce la cordenada X");	//Se obtienen las coordenada x
+				y=leerCordenada("Introduce la cordenada y");	//Se obtiene la coordenada y
+				if(Tablero.comprobarCordenada(x, y)){			//Comprueba que la coordenada este libre
+					coordenadaOk=true;
+				}else{
+					System.out.println("La cordenada ya esta ocupada elige otra");
+				}
+			}while(!coordenadaOk);
+			boolean hV=leerHorizontalidad();						//Se indica la horizontalidad de las fichas
+			jugada = new Jugada(x,y,fichasDeJugada,hV);				//Se crea la jugada
+		}while(!Tablero.comprobarJugada(jugada));
+		
+		return jugada;
+	}
+	
 	
 	public boolean actualizarMano(Jugada pJugada){
 		this.getListaFichas().utilizarFichas(pJugada);

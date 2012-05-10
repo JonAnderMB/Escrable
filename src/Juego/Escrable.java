@@ -9,7 +9,7 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 //http://download.eclipse.org/tools/gef/updates/releases
 public class Escrable {
-		
+	
 	public static void main(String[] args) {
 		//#######################################################
 		//Inicializacion del juego
@@ -41,24 +41,26 @@ public class Escrable {
 				int opcion=leerOpcion();//Se le la opcion que desea realizar el jugador
 				
 				switch (opcion) {						//Se hace una accion en funcion de la opcion
+					
 					case 1:								//Caso 1-Pasar
 						pasar(jugador);					//Se llama a la funcion pasar, y se le pasa el jugador por parametro, los parametros en java son pro referencia asi que no hay que liarse con devolberlo despues
 						accionOk=true;					//Se indica que una accion se realizo y que luego podra cambiar de turno
 						break;							//Se sale de la primera opcion
-					case 2:								//Caso 2-Jugar
-						boolean quereJugada=false;
+					
+					case 2:														//Caso 2-Jugar
+						boolean quererJugada=false;							//Indica 
 						Jugada jugada;
 						do{
-							jugada=hacerJugada();
+							jugada=jugador.hacerJugada();
 							System.out.println("Quieres hacer la jugada");
-						}while(quererJugada);
+						}while(!quererJugada);
 						
 						
-						if(jugador.hacerJugada(jugada)){juegoGanado=true;} 				//Comprueba que haya ganado y se sale del bucle
-						accionOk=true;													//Indice que se ha realizado una accion
+						if(jugador.jugar(jugada)){juegoGanado=true;} 		//Comprueba que haya ganado y se sale del bucle
+						accionOk=true;											//Indice que se ha realizado una accion
 						break;
 						
-					case 3://Cambiar mano
+					case 3://Caso 3-Cambiar mano
 						jugador.cambiarMano();
 						System.out.println("Cambiaste de mano");
 						accionOk=true;
@@ -77,7 +79,7 @@ public class Escrable {
 			
 		}
 	}
-	
+	//TODO Gestor de mensajes clase
 	/*oK*/private static int leerOpcion(){							//La funcion se realiza para que el codigo se bisual
 		Scanner sc = new Scanner(System.in);		//Se crea un lector
 		System.out.println("Elige la opcion");		//Mensaje aclarativo
@@ -88,17 +90,7 @@ public class Escrable {
 		return sc.nextInt();						//Se obtiene la opcion
 	}
 	
-	/*oK*/private static byte leerCordenada(String msg){				//La funcion se realiza dado que esta parte del codigo es redundante y solo cambia el mensaje
-		Scanner sc = new Scanner(System.in);							//Se crea un lector
-		byte coordenada;												//Se crea la variable coordenada
-		
-		do{																//While para que la coordenada este en el rango correcto
-			System.out.println("Introduce la cordenada x de 0 a 14");	//Se imprime mensaje aclaratorio
-			coordenada = (byte) sc.nextInt();							//Se obtiene la coordenada del usuario
-		}while(coordenada<0 && coordenada>15);							//Condicion del while que la cordenada este entre 0 y 14 incluidos
-		
-		return coordenada;												//Se retorna la coordenada
-	}
+	
 	
 	/*oK*/private static boolean leerHorizontalidad(){				//La funcion se realiza para que el codigo se bisual
 		Scanner sc = new Scanner(System.in);								//Se crea un lector
@@ -115,14 +107,14 @@ public class Escrable {
 			return hV;														//Se retorna hV
 		
 	}
-	
-	/*oK*/private static void imprimirFichas(Jugador pJugador){		//Se imprimen las fichas del jugador
+	//TODO Pasar a la clase jugador
+	/*REV*/private static void imprimirFichas(Jugador pJugador){		//Se imprimen las fichas del jugador
 		System.out.println("Estas son las fichas de las que dispone");	//Mensaje aclaratorio
 		System.out.println("Mano: ");									//Mensaje aclaratorio
 		pJugador.getListaFichas().imprimirMano();						//Se llama la funcion que imprime el valor de las fichas de la mano
 	}
-	
-	/*oK*/private static void pasar(Jugador pJugador){				//Funcion para realizar el acto de pasar
+	//TODO pasar a la aclase jugasor
+	/*REV*/private static void pasar(Jugador pJugador){				//Funcion para realizar el acto de pasar
 		int totalFichas = pJugador.getListaFichas().getTotalFichas();	//Obtiene el total de fichas del saco
 		if(totalFichas==0){												//En el caso de que no tenga fichas en el saco imprime un mensaje en caso de que tenga alguna ficha en el saco imprime otro mensaje diferente
 			System.out.println("Has pasado");
@@ -131,27 +123,7 @@ public class Escrable {
 		}
 	}
 	
-	private static Jugada hacerJugada(Jugador pJugador){
-		Jugada jugada;
-		do{														//Bucle mientras la jugada no se pueda hacer
-			byte x, y;
-			boolean coordenadaOk=false;
-			Ficha[] fichasDeJugada = seleccionaFichas(pJugador);
-			do{													//Mientras la coodenada no este libre falla
-				x=leerCordenada("Introduce la cordenada X");	//Se obtienen las coordenada x
-				y=leerCordenada("Introduce la cordenada y");	//Se obtiene la coordenada y
-				if(Tablero.comprobarCordenada(x, y)){			//Comprueba que la coordenada este libre
-					coordenadaOk=true;
-				}else{
-					System.out.println("La cordenada ya esta ocupada elige otra");
-				}
-			}while(!coordenadaOk);
-			boolean hV=leerHorizontalidad();						//Se indica la horizontalidad de las fichas
-			jugada = new Jugada(x,y,fichasDeJugada,hV);				//Se crea la jugada
-		}while(!Tablero.comprobarJugada(jugada));
-		
-		return jugada;
-	}
+	
 	
 	private static Ficha[] seleccionaFichas(Jugador pJugador){
 		Ficha[] fichasSeleccionadas = null;
@@ -178,45 +150,32 @@ public class Escrable {
 		return fichasSeleccionadas;
 	}
 		
-	private static void crearJugadores(byte pJugadores){
+	/*ok*/private static void crearJugadores(byte pTotalJugadores){
 		
-		ArrayList<Jugador> jugadores= new ArrayList<Jugador>();
-		int i;
-		for( i = 0; i <= pJugadores ; i++){
-			String nombre;
-			do{
-				System.out.println("Elige el nombre ");
-				nombre = leerNombreDeJugador();
-			}while(nombre.equals(""));
+		for( int i = 0; i < pTotalJugadores ; i++){							//Un for para crear el total de jugadores
+			String nombre;										
+			do{																//Mientras el nombre sea bacio
+				System.out.println("Elige el nombre ");						//Mensaje aclaratorio
+				nombre = leerNombreDeJugador();								//Leer el nombre de jugador
+			}while(nombre.equals("") || nombre.trim().equals(""));
 			
-			Jugador h = new Jugador(nombre,i+1);
+			Jugador jugador = new Jugador(nombre,i);						//Se crea un jugador
 			
-			jugadores.add(h);
+			ListaJugadores.getListaJugadores().anadirJugador(jugador);		//Se añade a la lista de jugadores
 		}; 
 	}
 	
-	private static byte leerNumeroDeJugadores(){
-		byte numeroDeJugadores;
-		try {
-			numeroDeJugadores = (byte) System.in.read();
-		} catch (IOException e) {
-			numeroDeJugadores = 0;
-		}
-		return numeroDeJugadores;
+	//TODO quiza tray catch probar
+	/*REV*/private static byte leerNumeroDeJugadores(){
+		Scanner sc = new Scanner(System.in);			//Se crea el lector
+		return (byte) sc.nextInt();					//Se obtiene el numero de jugadores y se retorna
 	}
 	
-	private static String leerNombreDeJugador(){
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader (isr);
+	/*REV*/private static String leerNombreDeJugador(){
+		Scanner sc = new Scanner(System.in);			//Se crea el lector
+		return sc.next();								//Se obtiene el nombre y se retorna
 		
-		String nombre;
-		try {
-			nombre = br.readLine();
-		} catch (IOException e) {
-			nombre = "";
-		}
 		
-		return nombre;
 	}
 	
 }
