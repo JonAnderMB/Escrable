@@ -20,7 +20,7 @@ public class Tablero {
 	
 	public static boolean comprobarCordenada(byte x, byte y){return false;}
     
-    public static boolean comprobarJugada()
+    public static boolean comprobarJugada(Jugada jugada)
     {
     	//jugada pasa coords.
     	//NECESITO ARRAY DE FICHAS A USAR EN LA JUGADA.
@@ -28,11 +28,10 @@ public class Tablero {
     	return false;
     }
    
-    public void realizarJugada()
+    public boolean realizarJugada()
     {
-    	//Me pasan la palabra a colocar y se contrasta con el diccionario.
-    	//If correcto --> ponerFicha()
-    	//Else --> repetir la jugada.
+    	return false;
+    	//Se realiza lajugada
     }
     
     public void ponerFicha()

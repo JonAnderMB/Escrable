@@ -22,7 +22,8 @@ public class ListaFichas {
            new Ficha('s',1),new Ficha('s',1),new Ficha('t',1),new Ficha('t',1),new Ficha('t',1),new Ficha('t',1),
            new Ficha('u',1),new Ficha('u',1),new Ficha('u',1),new Ficha('u',1),new Ficha('u',1),new Ficha('v',4),
            new Ficha('x',8),new Ficha('y',4),new Ficha('z',10)};
-   public Ficha[] mano = new Ficha[7];
+   
+   private Ficha[] mano = new Ficha[7];
    
 
     private int random () {
@@ -151,9 +152,17 @@ public class ListaFichas {
 
     //GETERS
     
-	public int getTotalFichas(){
+	public int getTotalFichasDeSaco(){
 	    return sacodefichas.length;
-	    }
+	}
+	
+	public int getTotalFichasDeMano(){
+		return mano.length;
+	}
+	
+	public int getTotalFichas(){
+	    return sacodefichas.length+mano.length;
+	}
 	
 	private Ficha[] getSacodefichas() {
 	    return sacodefichas;

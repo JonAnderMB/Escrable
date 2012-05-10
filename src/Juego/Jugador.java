@@ -32,8 +32,8 @@ public class Jugador {
 		}
 	}
 	
-	public boolean hacerJugada(byte pX, byte pY, Ficha[] pFicha, boolean pVH){
-		return new Jugada(pX, pY, pFicha, pVH); //h v
+	public boolean hacerJugada(Jugada pJugada){
+		//Se le pasa la jugada y en funcion de ella se compruena si ha ganado o no y se actualiza el tablero
 	}
 	
 	public boolean actualizarMano(Jugada pJugada){
