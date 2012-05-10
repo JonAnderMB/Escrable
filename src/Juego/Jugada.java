@@ -21,7 +21,7 @@ public class Jugada {
 		return this.f;
 	}
 	
-	public Ficha[] getletras(){
+	public Ficha[] getLetras(){
 		return this.letras;
 	}
 }
