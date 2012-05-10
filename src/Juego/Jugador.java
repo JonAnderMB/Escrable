@@ -48,15 +48,15 @@ public class Jugador {
 			boolean coordenadaOk=false;
 			Ficha[] fichasDeJugada = seleccionaFichas();
 			do{															//Mientras la coodenada no este libre falla
-				x=Mensajes.leerCordenada("Introduce la cordenada X");	//Se obtienen las coordenada x
-				y=Mensajes.leerCordenada("Introduce la cordenada y");	//Se obtiene la coordenada y
+				x=Gestor.leerCordenada("Introduce la cordenada X");	//Se obtienen las coordenada x
+				y=Gestor.leerCordenada("Introduce la cordenada y");	//Se obtiene la coordenada y
 				if(Tablero.comprobarCordenada(x, y)){					//Comprueba que la coordenada este libre
 					coordenadaOk=true;
 				}else{
 					System.out.println("La cordenada ya esta ocupada elige otra");
 				}
 			}while(!coordenadaOk);
-			boolean hV=Mensajes.leerHorizontalidad();						//Se indica la horizontalidad de las fichas
+			boolean hV=Gestor.leerHorizontalidad();						//Se indica la horizontalidad de las fichas
 			jugada = new Jugada(x,y,fichasDeJugada,hV);						//Se crea la jugada
 		}while(!Tablero.comprobarJugada(jugada));
 		
