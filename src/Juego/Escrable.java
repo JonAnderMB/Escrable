@@ -43,7 +43,7 @@ public class Escrable {
 				switch (opcion) {						//Se hace una accion en funcion de la opcion
 					
 					case 1:								//Caso 1-Pasar
-						pasar(jugador);					//Se llama a la funcion pasar, y se le pasa el jugador por parametro, los parametros en java son pro referencia asi que no hay que liarse con devolberlo despues
+						jugador.pasar();					//Se llama a la funcion pasar, y se le pasa el jugador por parametro, los parametros en java son pro referencia asi que no hay que liarse con devolberlo despues
 						accionOk=true;					//Se indica que una accion se realizo y que luego podra cambiar de turno
 						break;							//Se sale de la primera opcion
 					
@@ -89,67 +89,7 @@ public class Escrable {
 		
 		return sc.nextInt();						//Se obtiene la opcion
 	}
-	
-	
-	
-	/*oK*/private static boolean leerHorizontalidad(){				//La funcion se realiza para que el codigo se bisual
-		Scanner sc = new Scanner(System.in);								//Se crea un lector
-		boolean hV;															//Se crea la variable que dice que es horizontal o vertical
-		
-		System.out.println("Inserte 1 para horizontal y 2 para vertical");	//Mensaje aclaratorio
-		
-			if(sc.nextInt()==1){											//If para establecer el valor de la variable hV
-				hV=true;
-			}else{
-				hV=false;
-			}
 			
-			return hV;														//Se retorna hV
-		
-	}
-	//TODO Pasar a la clase jugador
-	/*REV*/private static void imprimirFichas(Jugador pJugador){		//Se imprimen las fichas del jugador
-		System.out.println("Estas son las fichas de las que dispone");	//Mensaje aclaratorio
-		System.out.println("Mano: ");									//Mensaje aclaratorio
-		pJugador.getListaFichas().imprimirMano();						//Se llama la funcion que imprime el valor de las fichas de la mano
-	}
-	//TODO pasar a la aclase jugasor
-	/*REV*/private static void pasar(Jugador pJugador){				//Funcion para realizar el acto de pasar
-		int totalFichas = pJugador.getListaFichas().getTotalFichas();	//Obtiene el total de fichas del saco
-		if(totalFichas==0){												//En el caso de que no tenga fichas en el saco imprime un mensaje en caso de que tenga alguna ficha en el saco imprime otro mensaje diferente
-			System.out.println("Has pasado");
-		}else{
-			System.out.println("Has pasado, aun te quedaban" + totalFichas + " fichas quizas podrias haber cambiado de mano");//TODO comprobar el total de las fichas
-		}
-	}
-	
-	
-	
-	private static Ficha[] seleccionaFichas(Jugador pJugador){
-		Ficha[] fichasSeleccionadas = null;
-		char caracter='0';
-		int i=0;
-		imprimirFichas(pJugador);		//Imprime las fichas que tiene el jugador en la mano
-		System.out.println("Inserte '1' para dejar de seleccionar fichas");
-		System.out.println("Inserte la ficha");	
-		
-		do{
-			try {
-				caracter = (char) System.in.read();
-				if(pJugador.getListaFichas().estaLaFichaEnLaMano(caracter)){
-					fichasSeleccionadas[i]=pJugador.getListaFichas().obtenerFicha(caracter);
-					i++;
-				}else{
-					System.out.println("Esa fichas no la puedes usar");
-				}
-			}catch (IOException e){
-				e.printStackTrace();
-			}
-		}while(caracter!='1');
-		
-		return fichasSeleccionadas;
-	}
-		
 	/*ok*/private static void crearJugadores(byte pTotalJugadores){
 		
 		for( int i = 0; i < pTotalJugadores ; i++){							//Un for para crear el total de jugadores
